@@ -1,0 +1,17 @@
+[user]
+	name = Christopher Brown
+	email = chris@xoeb.us
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+[push]
+	default = simple
+[commit]
+	verbose = true
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
