@@ -2,13 +2,14 @@ theme = dark:Catppuccin Mocha,light:Catppuccin Latte
 
 cursor-style = underline
 cursor-style-blink = false
+# Disable ghostty's shell integration cursor so nvim manages it
 shell-integration-features = no-cursor
 
+# Disable ligatures
 font-feature = -calt
 font-feature = -dlig
 font-feature = -liga
 
-# Quake mode
-# keybind = global:opt+space=toggle_quick_terminal
-# quick-terminal-animation-duration = 0.1
+# Send escape + enter for terminals that need both (e.g. vim command mode)
 keybind = shift+enter=text:\x1b\r
+mouse-hide-while-typing = true
