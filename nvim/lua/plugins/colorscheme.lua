@@ -9,6 +9,7 @@ return {
 			flavour = "mocha",
 			-- Automatically configure highlight groups for detected plugins
 			auto_integrations = true,
+			transparent_background = true,
 		},
 		config = function(_, opts)
 			require("catppuccin").setup(opts)
