@@ -1,0 +1,14 @@
+theme = dark:Catppuccin Mocha,light:Catppuccin Latte
+
+cursor-style = underline
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+font-feature = -calt
+font-feature = -dlig
+font-feature = -liga
+
+# Quake mode
+# keybind = global:opt+space=toggle_quick_terminal
+# quick-terminal-animation-duration = 0.1
+keybind = shift+enter=text:\x1b\r

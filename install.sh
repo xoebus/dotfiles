@@ -28,3 +28,7 @@ fi
 if [ ! -L ~/.config/tmux ]; then
   ln -s $PWD/tmux ~/.config/tmux
 fi
+
+if [ ! -L ~/.config/ghostty ]; then
+  ln -s $PWD/ghostty ~/.config/ghostty
+fi
