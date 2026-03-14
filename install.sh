@@ -24,3 +24,7 @@ fi
 if [ ! -L ~/.config/nvim ]; then
   ln -s $PWD/nvim ~/.config/nvim
 fi
+
+if [ ! -L ~/.config/tmux ]; then
+  ln -s $PWD/tmux ~/.config/tmux
+fi

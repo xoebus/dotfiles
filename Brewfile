@@ -1,6 +1,7 @@
 # Core
 brew "neovim"
 brew "git"
+brew "tmux"
 
 # Neovim dependencies
 brew "ripgrep"       # telescope live grep
