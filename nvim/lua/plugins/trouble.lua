@@ -1,37 +1,31 @@
 return {
-  {
-    "folke/trouble.nvim",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = function()
-      require("trouble").setup {}
-
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev,
-        { silent = true, noremap = true, desc = "Go to previous [d]iagnostic" }
-      )
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next,
-        { silent = true, noremap = true, desc = "Go to next [d]iagnostic" }
-      )
-
-      vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-        { silent = true, noremap = true }
-      )
-      vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-        { silent = true, noremap = true }
-      )
-      vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
-        { silent = true, noremap = true }
-      )
-      vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-        { silent = true, noremap = true }
-      )
-      vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-        { silent = true, noremap = true }
-      )
-      vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
-        { silent = true, noremap = true }
-      )
-    end
-  },
+	{
+		"folke/trouble.nvim",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		cmd = { "Trouble" },
+		keys = {
+			{
+				"[d",
+				function()
+					vim.diagnostic.jump({ count = -1, float = true })
+				end,
+				desc = "Go to previous [d]iagnostic",
+			},
+			{
+				"]d",
+				function()
+					vim.diagnostic.jump({ count = 1, float = true })
+				end,
+				desc = "Go to next [d]iagnostic",
+			},
+			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Toggle diagnostics" },
+			{ "<leader>xd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Document diagnostics" },
+			{ "<leader>xl", "<cmd>Trouble loclist toggle<cr>", desc = "Location list" },
+			{ "<leader>xq", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix list" },
+			{ "gR", "<cmd>Trouble lsp_references toggle<cr>", desc = "LSP references" },
+		},
+		opts = {},
+	},
 }

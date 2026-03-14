@@ -1,13 +1,18 @@
 return {
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.o.termuicolors = true
-      vim.o.background = "dark"
-      vim.cmd([[colorscheme tokyonight-storm]])
-    end,
-  },
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		-- Load before all other plugins to avoid flash of unstyled content
+		lazy = false,
+		priority = 1000,
+		opts = {
+			flavour = "mocha",
+			-- Automatically configure highlight groups for detected plugins
+			auto_integrations = true,
+		},
+		config = function(_, opts)
+			require("catppuccin").setup(opts)
+			vim.cmd.colorscheme("catppuccin")
+		end,
+	},
 }
-
