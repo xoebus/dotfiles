@@ -24,7 +24,19 @@ local lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json"
 if vim.fn.filewritable(vim.fn.stdpath("config")) ~= 2 then
 	local state_lock = vim.fn.stdpath("state") .. "/lazy-lock.json"
 	vim.fn.mkdir(vim.fn.stdpath("state"), "p")
-	vim.uv.fs_copyfile(lockfile, state_lock)
+	-- Write a fresh, writable copy (fs_copyfile would keep the store's
+	-- read-only mode, and lazy couldn't update it).
+	local src = io.open(lockfile, "r")
+	if src then
+		local data = src:read("*a")
+		src:close()
+		os.remove(state_lock)
+		local dst = io.open(state_lock, "w")
+		if dst then
+			dst:write(data)
+			dst:close()
+		end
+	end
 	lockfile = state_lock
 end
 
