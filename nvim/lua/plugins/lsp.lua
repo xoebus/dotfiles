@@ -69,7 +69,7 @@ return {
 							"n",
 							keys,
 							func,
-							{ noremap = true, silent = true, buffer = bufnr, desc = "LSP: " .. desc }
+							{ noremap = true, silent = true, buf = bufnr, desc = "LSP: " .. desc }
 						)
 					end
 
@@ -92,15 +92,9 @@ return {
 					-- but we override <C-k> in normal mode since the default is insert-mode only
 					nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
-					-- Create a command `:Format` local to the LSP buffer
-					-- Note: conform.nvim is the primary formatter (lsp_format = "fallback")
-					vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-						vim.lsp.buf.format()
-					end, { desc = "Format current buffer with LSP" })
-
 					-- Enable inlay hints if the server supports them
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
-					if client and client.supports_method("textDocument/inlayHint") then
+					if client and client:supports_method("textDocument/inlayHint", bufnr) then
 						vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 					end
 				end,

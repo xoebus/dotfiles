@@ -9,14 +9,24 @@ return {
 			{
 				"[d",
 				function()
-					vim.diagnostic.jump({ count = -1, float = true })
+					vim.diagnostic.jump({
+						count = -1,
+						on_jump = function(_, bufnr)
+							vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+						end,
+					})
 				end,
 				desc = "Go to previous [d]iagnostic",
 			},
 			{
 				"]d",
 				function()
-					vim.diagnostic.jump({ count = 1, float = true })
+					vim.diagnostic.jump({
+						count = 1,
+						on_jump = function(_, bufnr)
+							vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+						end,
+					})
 				end,
 				desc = "Go to next [d]iagnostic",
 			},
