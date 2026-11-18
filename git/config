@@ -13,7 +13,9 @@
 	default = simple
 [commit]
 	verbose = true
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+; [url "ssh://git@github.com/"]
+; 	insteadOf = https://github.com/
 [core]
 	excludesfile = /Users/cb/.config/git/ignore
+[init]
+	defaultBranch = main
