@@ -15,7 +15,20 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-require("lazy").setup("plugins")
+-- When this config is installed read-only (e.g. by home-manager into the Nix
+-- store), lazy.nvim can't write lazy-lock.json next to it. Use a writable copy
+-- in the state dir, refreshed from the committed lockfile on every start so
+-- plugin versions stay pinned to what's in the repo. (Run `:Lazy restore` to
+-- move installed plugins to those versions.)
+local lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json"
+if vim.fn.filewritable(vim.fn.stdpath("config")) ~= 2 then
+	local state_lock = vim.fn.stdpath("state") .. "/lazy-lock.json"
+	vim.fn.mkdir(vim.fn.stdpath("state"), "p")
+	vim.uv.fs_copyfile(lockfile, state_lock)
+	lockfile = state_lock
+end
+
+require("lazy").setup("plugins", { lockfile = lockfile })
 
 -- Enable true color support
 vim.opt.termguicolors = true

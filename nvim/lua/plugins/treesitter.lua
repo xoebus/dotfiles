@@ -122,18 +122,22 @@ return {
 			-- txtar is the archive format used by Go toolchain tests (cmd/go/testdata).
 			-- The parser lives locally; TREE_SITTER_TXTAR can override the default path.
 			local txtar_path = vim.env.TREE_SITTER_TXTAR or vim.fn.expand("~/src/claude/tree-sitter-txtar")
+			-- Only machines with the parser checked out get txtar (e.g. not servers).
+			local has_txtar = vim.uv.fs_stat(txtar_path) ~= nil
 
-			vim.api.nvim_create_autocmd("User", {
-				pattern = "TSUpdate",
-				callback = function()
-					require("nvim-treesitter.parsers").txtar = {
-						install_info = {
-							path = txtar_path,
-							queries = "queries/txtar",
-						},
-					}
-				end,
-			})
+			if has_txtar then
+				vim.api.nvim_create_autocmd("User", {
+					pattern = "TSUpdate",
+					callback = function()
+						require("nvim-treesitter.parsers").txtar = {
+							install_info = {
+								path = txtar_path,
+								queries = "queries/txtar",
+							},
+						}
+					end,
+				})
+			end
 
 			vim.filetype.add({
 				extension = {
@@ -141,7 +145,10 @@ return {
 				},
 			})
 
-			local parsers = vim.list_extend(vim.deepcopy(ensure_installed), { "txtar" })
+			local parsers = vim.deepcopy(ensure_installed)
+			if has_txtar then
+				table.insert(parsers, "txtar")
+			end
 			require("nvim-treesitter").install(parsers)
 
 			-- `main` enables nothing automatically: turn on highlighting and
