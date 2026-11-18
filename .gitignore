@@ -1,1 +1,5 @@
 ghostty/*.bak
+
+# Nix build outputs
+result
+result-*
